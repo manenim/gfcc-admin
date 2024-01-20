@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id Int @id @unique @default(autoincrement())
+  firstName String
+  lastName String
+  eightId Int
+  eight Eight @relation(fields: [eightId], references: [id])
+
+  // profile Profile?
+  // twenty_fourId Int
+  // twenty_four Twenty_four @relation(fields: [twenty_fourId], references: [id])
+
+
+}
+
+// model Profile {
+//   id Int @id @unique @default(autoincrement())
+//   email String
+//   phone Int
+//   address String
+//   memberId Int @unique //Foreign Key 
+//   member Member @relation(fields: [memberId], references: [id])
+// }
+
+model League {
+  id Int @id @unique @default(autoincrement())
+  name String 
+  twenty_four Twenty_four[]
+}
+
+model Twenty_four{
+  id Int @id @unique @default(autoincrement())
+  name String 
+  leagueId Int
+  League League @relation(fields: [leagueId], references: [id])
+  eight Eight[]
+  // members Member[]
+}
+
+model Eight {
+    id Int @id @unique @default(autoincrement())
+    name String
+    members Member[]
+    twenty_fourId Int
+    twenty_four Twenty_four @relation(fields: [twenty_fourId], references: [id])
+
+}
